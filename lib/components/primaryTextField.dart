@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class PrimaryTextField extends StatelessWidget {
   final String labelTextValue;
+  final String hintTextValue;
   final Key? key; // Key parameter should be of type Key
 
-  const PrimaryTextField({required this.labelTextValue, this.key}) : super(key: key);
+  const PrimaryTextField({required this.labelTextValue, required this.hintTextValue, this.key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class PrimaryTextField extends StatelessWidget {
         decoration: InputDecoration(
           semanticCounterText: "-",
           labelText: labelTextValue,
-          hintText: "Email Address/UserName",
+          hintText: hintTextValue,
           border: const UnderlineInputBorder(),
         ),
         style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1)),
