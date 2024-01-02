@@ -1,11 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_application_3/loginScreen.dart';
-import 'components/counterLabel.dart';
-import 'components/primaryButton.dart';
-import 'components/primaryTextField.dart';
+import '/Screens/loginScreen.dart';
+import '/Screens/forgotPassword.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '/Helpers/helpers.dart';
 
 class CounterNotifier extends StateNotifier<int> {
   CounterNotifier() : super(0);
@@ -27,9 +24,24 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  @override
+   final NavigationService navigationService = NavigationService();
+
   Widget build(BuildContext context) {
-    return LoginScreen();
+    return MaterialApp(
+      navigatorKey: NavigationService.navigatorKey,
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case 'home':
+            return MaterialPageRoute(builder: (context) => LoginScreen());
+          case 'forgotPW':
+            return MaterialPageRoute(builder: (context) => ForgotPasswordScreen());
+          default:
+            return MaterialPageRoute(builder: (context) => LoginScreen());
+        }
+      },
+      home: LoginScreen(),
+    );
+    // return LoginScreen();
     }
 
         // Column(

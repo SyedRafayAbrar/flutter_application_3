@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_3/main.dart';
+import '/Screens/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CounterLabel extends ConsumerWidget {

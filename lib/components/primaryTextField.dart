@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_3/main.dart';
 
 class PrimaryTextField extends StatelessWidget {
   final String labelTextValue;

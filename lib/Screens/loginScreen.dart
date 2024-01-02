@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'components/counterLabel.dart';
-import 'components/primaryButton.dart';
-import 'components/primaryTextField.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_application_3/Helpers/helpers.dart';
+import '/components/primaryButton.dart';
+import '/components/primaryTextField.dart';
+import '/Helpers/helpers.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text("New")),
+        appBar: AppBar(title: Text("Login")),
         body: Column(
           children: [
             const PrimaryTextField(labelTextValue: "Email"),
@@ -17,7 +17,9 @@ class LoginScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                TextButton(onPressed: () => (), child: Text("Forgot Password")),
+                TextButton(onPressed: () => (
+                  NavigationService.navigateTo(AppRoutes.forgotPW, NavigationType.presentRoot, arguments: {'data': 'Hello'})
+                ), child: const Text("Forgot Password"), style: TextButton.styleFrom(padding: EdgeInsets.fromLTRB(20, 0, 0, 0))),
               ],
             ),
             const SizedBox(
@@ -33,6 +35,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   void onButtonPressed() {
-    print("Button Pressed");
+    NavigationService.navigateTo(AppRoutes.forgotPW, NavigationType.presentRoot, arguments: {'data': 'Hello'});
+    
   }
 }
