@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
               height: 20,
             ),
             Column(children: [
-              PrimaryButton(title: "Login", onPressed: () => ()),
+              PrimaryButton(title: "Login", onPressed: onLoginPressed),
             ]),
           ],
         ),
@@ -38,8 +38,8 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void onButtonPressed() {
-    NavigationService.navigateTo(AppRoutes.forgotPW, NavigationType.push,
+  void onLoginPressed() {
+    NavigationService.navigateTo(AppRoutes.home, NavigationType.presentRoot,
         arguments: {'data': 'Hello'});
   }
 }

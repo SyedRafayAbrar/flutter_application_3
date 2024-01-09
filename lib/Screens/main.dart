@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_3/Screens/home.dart';
 import '/Screens/loginScreen.dart';
 import '/Screens/forgotPassword.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,7 +33,7 @@ class _MainAppState extends State<MainApp> {
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case 'home':
-            return MaterialPageRoute(builder: (context) => LoginScreen());
+            return MaterialPageRoute(builder: (context) => HomeScreen());
           case 'forgotPW':
             return MaterialPageRoute(builder: (context) => ForgotPasswordScreen());
           default:
