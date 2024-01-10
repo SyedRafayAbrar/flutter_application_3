@@ -9,24 +9,24 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: BaseScaffold(
-          title: "Home",
-          body: Column(
-            children: [
-              Container(
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                  IconButton(onPressed: ()=>(), icon: Image.asset(AppImageConstants.filterIcon)),
-                ]),
-              ),
-              Expanded(
-                child: HomeListView(),
-              )
-            ],
-          ), 
-          shouldShowMenu: true,
-          ),
+        title: "Home",
+        body: Column(
+          children: [
+            Container(
+              height: 40,
+              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                IconButton(
+                    onPressed: () => (),
+                    icon: Image.asset(AppImageConstants.filterIcon)),
+              ]),
+            ),
+            Expanded(
+              child: HomeListView(),
+            )
+          ],
+        ),
+        shouldShowMenu: true,
+      ),
     );
   }
 }
@@ -34,11 +34,12 @@ class HomeScreen extends StatelessWidget {
 class HomeListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        padding: const EdgeInsets.fromLTRB(8, 8, 8, 50),
-        itemCount: 3,
+    return ListView.separated(
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 50),
         itemBuilder: (BuildContext context, int index) {
           return HomeCell();
-        });
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
+        itemCount: 3);
   }
 }
