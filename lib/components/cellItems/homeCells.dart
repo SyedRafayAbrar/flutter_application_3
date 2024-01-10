@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
-import 'package:flutter_application_3/Screens/BaseScaffold.dart';
 
 class HomeCell extends StatelessWidget {
   // final HomeCellModel? model = null;

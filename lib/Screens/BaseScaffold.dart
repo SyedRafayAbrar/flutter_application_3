@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/global.dart';
 import 'package:flutter_application_3/Helpers/helpers.dart';
+import 'package:flutter_application_3/Screens/SideMenu.dart';
 
 class BaseScaffold extends StatelessWidget {
   final String title;
@@ -13,10 +14,12 @@ class BaseScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideBar(),
       appBar: AppBar(
           title: Text(title),
+          actions: [getBackWidget()],
           leading: Column(
-            children: [getBackWidget(), getMenuWidget()],
+            children: [getBackWidget(), getMenuWidget(context)],
           )),
       body: body,
     );
@@ -31,11 +34,17 @@ class BaseScaffold extends StatelessWidget {
         : const SizedBox.shrink();
   }
 
-  Widget getMenuWidget() {
+  Widget getMenuWidget(BuildContext context) {
     return shouldShowMenu
-        ? IconButton(
-            icon: const Icon(Icons.menu_rounded, color: Colors.black),
-            onPressed: () => NavigationService.goBack(),
+        ? Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(Icons.menu_rounded, color: Colors.black),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              );
+            },
           )
         : const SizedBox.shrink();
   }
