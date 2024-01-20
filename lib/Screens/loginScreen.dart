@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_3/Helpers/appTheme.dart';
 import 'package:flutter_application_3/Helpers/helpers.dart';
 import '/components/primaryButton.dart';
 import '/components/primaryTextField.dart';
@@ -8,6 +9,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: dashboardTheme,
       home: BaseScaffold(
         title: "Login",
         body: Column(
@@ -23,7 +25,7 @@ class LoginScreen extends StatelessWidget {
                         arguments: {'data': 'Hello'})),
                     style: TextButton.styleFrom(
                         padding: const EdgeInsets.fromLTRB(20, 0, 0, 0)),
-                    child: const Text("Forgot Password")),
+                    child: const Text("Forgot Password?")),
               ],
             ),
             const SizedBox(

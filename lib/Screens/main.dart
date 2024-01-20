@@ -33,7 +33,6 @@ class _MainAppState extends State<MainApp> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: myTheme,
       navigatorKey: NavigationService.navigatorKey,
       onGenerateRoute: (settings) {
         switch (settings.name) {
