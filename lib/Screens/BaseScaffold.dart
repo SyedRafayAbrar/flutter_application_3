@@ -17,7 +17,6 @@ class BaseScaffold extends StatelessWidget {
       drawer: SideBar(),
       appBar: AppBar(
           title: Text(title),
-          actions: [getBackWidget()],
           leading: Column(
             children: [getBackWidget(), getMenuWidget(context)],
           )),

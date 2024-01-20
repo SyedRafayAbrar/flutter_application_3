@@ -31,6 +31,14 @@ class LoginScreen extends StatelessWidget {
             ),
             Column(children: [
               PrimaryButton(title: "Login", onPressed: onLoginPressed),
+              const SizedBox(
+              height: 20,
+              ),
+              Text("Or"),
+              const SizedBox(
+              height: 20,
+              ),
+              PrimaryButton(title: "SignUp", onPressed: onSignUpPressed),
             ]),
           ],
         ),
@@ -39,7 +47,12 @@ class LoginScreen extends StatelessWidget {
   }
 
   void onLoginPressed() {
-    NavigationService.navigateTo(AppRoutes.home, NavigationType.presentRoot,
+    NavigationService.navigateTo(AppRoutes.customerDashboard, NavigationType.presentRoot,
+        arguments: {'data': 'Hello'});
+  }
+
+  void onSignUpPressed() {
+    NavigationService.navigateTo(AppRoutes.signUp, NavigationType.push,
         arguments: {'data': 'Hello'});
   }
 }

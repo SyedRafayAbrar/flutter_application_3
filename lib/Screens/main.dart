@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_3/Helpers/appTheme.dart';
 import 'package:flutter_application_3/Screens/home.dart';
+import 'package:flutter_application_3/Screens/signUp.dart';
+import 'package:flutter_application_3/Screens/itemDetail.dart';
+import 'package:flutter_application_3/Screens/customerDashboard.dart';
 import '/Screens/loginScreen.dart';
 import '/Screens/forgotPassword.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,6 +33,7 @@ class _MainAppState extends State<MainApp> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: myTheme,
       navigatorKey: NavigationService.navigatorKey,
       onGenerateRoute: (settings) {
         switch (settings.name) {
@@ -36,6 +41,13 @@ class _MainAppState extends State<MainApp> {
             return MaterialPageRoute(builder: (context) => HomeScreen());
           case 'forgotPW':
             return MaterialPageRoute(builder: (context) => ForgotPasswordScreen());
+          case 'signUp':
+            return MaterialPageRoute(builder: (context) => SignUpScreen());  
+          case 'itemDetails':
+            return MaterialPageRoute(builder: (context) => ItemDetailsScreen());
+          case 'customerDashboard':
+            return MaterialPageRoute(builder: (context) => CustomerDashboardScreen());
+            
           default:
             return MaterialPageRoute(builder: (context) => LoginScreen());
         }

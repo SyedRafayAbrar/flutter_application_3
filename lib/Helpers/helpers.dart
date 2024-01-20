@@ -3,7 +3,10 @@ import 'package:flutter_application_3/Helpers/global.dart';
 
 enum AppRoutes {
   home,
+  signUp,
   forgotPW,
+  itemDetails,
+  customerDashboard,
 }
 
 enum NavigationType {
