@@ -11,7 +11,7 @@ MenuCell({required this.model});
     return Row(
       children: [
         model.menuIcon,
-        SizedBox(width: 10,), 
+        const SizedBox(width: 10,), 
         Text(model.menuTitle)],
     );
   }

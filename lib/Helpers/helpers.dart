@@ -7,6 +7,7 @@ enum AppRoutes {
   forgotPW,
   itemDetails,
   customerDashboard,
+  complaint,
 }
 
 enum NavigationType {
