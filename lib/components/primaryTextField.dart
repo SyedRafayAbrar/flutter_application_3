@@ -19,9 +19,10 @@ class PrimaryTextField extends StatelessWidget {
           semanticCounterText: "-",
           labelText: labelTextValue,
           hintText: hintTextValue,
+          labelStyle: const TextStyle(fontFamily: 'OutFit'),
           border: const UnderlineInputBorder(),
         ),
-        style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1)),
+        style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontFamily: 'OutFit'),
       ),
     );
   }

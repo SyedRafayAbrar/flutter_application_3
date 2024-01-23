@@ -13,3 +13,16 @@ class AppImageConstants {
 class AppColorConstants {
   static const Color primaryBluecolor = Color.fromRGBO(130,	187,	249	, 1);
 }
+
+
+class AppFontsConstants {
+  static const font1Regular = 'Outfit-Regular';
+  static const font1Bold = 'Outfit-Bold';
+  static const font1SemiBold = 'Outfit-SemiBold';
+  static const font1Black = 'Outfit-Black';
+  static const font1Medium = 'Outfit-Medium';
+  static const font1ExtraBold = 'Outfit-ExtraBold';
+  static const font1ExtraLight = 'Outfit-ExtraLight';
+  static const font1Light = 'Outfit-Light';
+  static const font1Thin = 'Outfit-Thin';
+}

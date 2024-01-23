@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/appTheme.dart';
+import 'package:flutter_application_3/Helpers/constants.dart';
 import 'package:flutter_application_3/Helpers/helpers.dart';
 import '/components/primaryButton.dart';
 import '/components/primaryTextField.dart';
@@ -25,7 +26,7 @@ class LoginScreen extends StatelessWidget {
                         arguments: {'data': 'Hello'})),
                     style: TextButton.styleFrom(
                         padding: const EdgeInsets.fromLTRB(20, 0, 0, 0)),
-                    child: const Text("Forgot Password?")),
+                    child: const Text("Forgot Password?", style: TextStyle(fontFamily: 'OutFit'),)),
               ],
             ),
             const SizedBox(
