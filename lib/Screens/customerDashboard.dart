@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/appTheme.dart';
 import 'package:flutter_application_3/Helpers/helpers.dart';
@@ -42,8 +44,9 @@ class CustomerDashboardScreen extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(10, 0, 0, 5),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     "Maintenance Status:",
@@ -63,8 +66,9 @@ class CustomerDashboardScreen extends StatelessWidget {
               ),
             ),
              Container(
-              padding: const EdgeInsets.fromLTRB(10, 0, 0, 5),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     "Residence Status:",
@@ -126,9 +130,7 @@ class DashboardListView extends StatelessWidget {
     return ListView.separated(
         padding: EdgeInsets.fromLTRB(10, 10, 10, 50),
         itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-              child: Container(
-            child: Row(
+          return  Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -139,13 +141,13 @@ class DashboardListView extends StatelessWidget {
                   width: 100,
                 ),
                 Expanded(
+
                     child: Text(
                   models[index].valueLabel,
                   style: dashboardTheme.textTheme.displaySmall,
                 ))
               ],
-            ),
-          ));
+            );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
         itemCount: models.length);
