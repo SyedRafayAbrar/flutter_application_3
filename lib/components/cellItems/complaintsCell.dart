@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/appTheme.dart';
+import 'package:flutter_application_3/models/complaintModel.dart';
 
 class ComplaintCell extends StatelessWidget {
-  ComplaintCellModel? model;
+  ComplaintJsonMappable? model;
 
   ComplaintCell({super.key,required this.model});
 
@@ -23,8 +24,8 @@ class ComplaintCell extends StatelessWidget {
                 color: Colors.red,
               ),
             ),
-            Text(model?.titleValue ?? '', style: myTheme.textTheme.titleMedium),
-            Text(model?.descriptionValue ?? '', style: myTheme.textTheme.titleSmall, softWrap: true),
+            Text(model?.complaintsSubject ?? '', style: myTheme.textTheme.titleMedium),
+            Text(model?.complaintsBody ?? '', style: myTheme.textTheme.titleSmall, softWrap: true),
           ],
         ),
       ],

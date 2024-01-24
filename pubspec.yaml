@@ -22,6 +22,7 @@ flutter:
 
   assets:
   - assets/images/
+  - assets/complaints.json
 
   fonts:
     - family: Outfit

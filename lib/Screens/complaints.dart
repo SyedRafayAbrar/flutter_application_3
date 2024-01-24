@@ -1,29 +1,30 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_3/Helpers/helpers.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
 import 'package:flutter_application_3/Screens/BaseScaffold.dart';
 import 'package:flutter_application_3/components/cellItems/complaintsCell.dart';
 import 'package:flutter_application_3/components/cellItems/homeCells.dart';
+import 'package:flutter_application_3/models/complaintModel.dart';
+import 'package:flutter_application_3/models/genericModel.dart';
 // import 'package:flutter_application_3/components/cellItems/h';
 
 class ComplaintsScreen extends StatelessWidget {
-  List<ComplaintCellModel> cellModels = [
-    ComplaintCellModel(
-        titleValue: "Testing comp 1",
-        descriptionValue:
-            "Water is not getting filled in tank, My flat is 206 please take an action"),
-    ComplaintCellModel(
-        titleValue: "Testing comp 2",
-        descriptionValue:
-            "Water is not getting filled in tank, My flat is 206 please take an action"),
-    ComplaintCellModel(
-        titleValue: "Testing comp 3",
-        descriptionValue:
-            "Water is not getting filled in tank, My flat is 206 please take an action")
-  ];
+  List<ComplaintJsonMappable> cellModels = [];
 
+_getJSONFromFile() async {
+  final response = await rootBundle.loadString('assets/complaints.json');
+  final decoded = jsonDecode(response);
+  final list = (decoded['data'] as List);
+  var complaintModels = list.map((data) => ComplaintJsonMappable.fromJson(data)).toList();
+
+  cellModels = complaintModels;
+}
   @override
   Widget build(BuildContext context) {
+    _getJSONFromFile();
     return MaterialApp(
         home: BaseScaffold(
       shouldShowMenu: true,
@@ -39,7 +40,7 @@ class ComplaintsScreen extends StatelessWidget {
 }
 
 class ComplaintsListView extends StatelessWidget {
-  List<ComplaintCellModel> cellModels = [];
+  List<ComplaintJsonMappable> cellModels = [];
   ComplaintsListView({required this.cellModels});
 
   @override
