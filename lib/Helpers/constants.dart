@@ -26,3 +26,7 @@ class AppFontsConstants {
   static const font1Light = 'Outfit-Light';
   static const font1Thin = 'Outfit-Thin';
 }
+
+class KeyChainAccessConstants {
+  static const apiToken = 'TOKEN';
+}
