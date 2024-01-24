@@ -1,5 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
+
+var logger = Logger(
+  printer: PrettyPrinter(),
+);
 
 enum BaseUrlType {
   devMode,
@@ -17,6 +22,8 @@ extension BaseUrlTypeExtension on BaseUrlType {
   }
 }
 
+enum RequestMethod { GET, POST, PATCH, DELETE, PUT }
+
 enum EndPointTypes {
   getComplaints
 }
@@ -26,6 +33,20 @@ extension EndPointTypesExtension on EndPointTypes {
     switch (this) {
       case EndPointTypes.getComplaints:
         return "/api/get_complaints"; // Replace with the actual development base URL // Replace with the actual production base URL
+    }
+  }
+
+  RequestMethod get method {
+    switch (this) {
+      case EndPointTypes.getComplaints:
+        return RequestMethod.GET; // Replace with the actual development base URL // Replace with the actual production base URL
+    }
+  }
+
+    Object get body {
+    switch (this) {
+      default:
+        return Null; // Replace with the actual development base URL // Replace with the actual production base URL
     }
   }
 
@@ -49,9 +70,39 @@ class NetworkHelper {
 
   Future<dynamic> getData(EndPointTypes endpoint) async {
     try {
+      http.Response response;
       var url = Uri.http(baseUrlModel.baseUrl, endpoint.url);
-      var response = await http.get(url, headers: endpoint.requestHeaders);
+      response = await http.get(url, headers: endpoint.requestHeaders);
+      
+         // Log: Request URL
+      logger.i('Request URL: $url');
 
+      // Log: Request Method
+      logger.i('Request Method: ${endpoint.method}');
+
+      // Log: Request Headers
+      logger.i('Request Headers: ${endpoint.requestHeaders}');
+
+
+       switch (endpoint.method) {
+      case RequestMethod.GET:
+        response = await http.get(url, headers: endpoint.requestHeaders);
+        break;
+      case RequestMethod.POST:
+        response = await http.post(url, headers: endpoint.requestHeaders, body: jsonEncode(endpoint.body));
+        break;
+      case RequestMethod.PATCH:
+        response = await http.patch(url, headers: endpoint.requestHeaders, body: jsonEncode(endpoint.body));
+        break;
+      case RequestMethod.PUT:
+        response = await http.put(url, headers: endpoint.requestHeaders, body: jsonEncode(endpoint.body));
+        break;
+      case RequestMethod.DELETE:
+        response = await http.delete(url, headers: endpoint.requestHeaders, body: jsonEncode(endpoint.body));
+        break;
+      default:
+        response = await http.get(url, headers: endpoint.requestHeaders);
+    }
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
