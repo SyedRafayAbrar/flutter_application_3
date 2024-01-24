@@ -17,10 +17,10 @@ class ComplaintCell extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Status",
+            Text(
+              (model?.complaintsCurrentStatus.statusName ?? ''),
               textAlign: TextAlign.left,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.red,
               ),
             ),
