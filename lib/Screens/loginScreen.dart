@@ -95,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var loginModelResponse = GenericModel<LoginModel>.fromJson(responseData, (p0) => LoginModel.fromJson(p0));
     final loginToken = loginModelResponse.data?.token;
     logger.i('token received $loginToken');
+    logger.i('role received ${loginModelResponse.data?.userRole?.role.roleDisplayName ?? ''}');
     if (loginToken != null) {
       SecureStorage().writeSecureData(KeyChainAccessConstants.apiToken, loginToken);
       NavigationService.navigateTo(
