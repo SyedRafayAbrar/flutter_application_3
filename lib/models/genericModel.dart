@@ -1,7 +1,7 @@
 class GenericModel<T> {
   int status;
-  T data;
-  String error;
+  T? data;
+  String? error;
 
   GenericModel({
     required this.status,
@@ -10,26 +10,20 @@ class GenericModel<T> {
   });
 
   factory GenericModel.fromJson(Map<String, dynamic> json, T Function(dynamic) fromJsonT) {
+    final data = json['data'];
+    print('json data if null $data');
     return GenericModel(
       status: json['status'],
-      data: fromJsonT(json['data']),
+      data: json['data'] != null ? fromJsonT(json['data']) : null,
       error: json['error'],
     );
-  }
-
-  Map<String, dynamic> toJson(Object Function(T) toJsonT) {
-    return {
-      'status': status,
-      'data': toJsonT(data),
-      'error': error,
-    };
   }
 }
 
 class GenericArrayModel<T> {
   int status;
   List<T> data;
-  String error;
+  String? error;
 
   GenericArrayModel({
     required this.status,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/appTheme.dart';
+import 'package:flutter_application_3/Helpers/constants.dart';
+import 'package:flutter_application_3/Helpers/secure_storage.dart';
 import 'package:flutter_application_3/Screens/complaints.dart';
 import 'package:flutter_application_3/Screens/home.dart';
 import 'package:flutter_application_3/Screens/signUp.dart';
@@ -30,7 +32,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-   final NavigationService navigationService = NavigationService();
+  final NavigationService navigationService = NavigationService();
 
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,23 +43,44 @@ class _MainAppState extends State<MainApp> {
           case 'home':
             return MaterialPageRoute(builder: (context) => HomeScreen());
           case 'forgotPW':
-            return MaterialPageRoute(builder: (context) => ForgotPasswordScreen());
+            return MaterialPageRoute(
+                builder: (context) => ForgotPasswordScreen());
           case 'signUp':
-            return MaterialPageRoute(builder: (context) => SignUpScreen());  
+            return MaterialPageRoute(builder: (context) => SignUpScreen());
           case 'itemDetails':
             return MaterialPageRoute(builder: (context) => ItemDetailsScreen());
           case 'customerDashboard':
-            return MaterialPageRoute(builder: (context) => CustomerDashboardScreen());
+            return MaterialPageRoute(
+                builder: (context) => CustomerDashboardScreen());
           case 'complaint':
             return MaterialPageRoute(builder: (context) => ComplaintsScreen());
           default:
             return MaterialPageRoute(builder: (context) => LoginScreen());
         }
       },
-      home: LoginScreen(),
+      home:  FutureBuilder<Widget>(
+        future: getRoute(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator(); // or some loading indicator
+          } else if (snapshot.hasError) {
+            return LoginScreen(); // or handle the error case
+          } else {
+            
+            return snapshot.data ?? LoginScreen();  
+             // return the determined screen or an empty container
+          }
+        },
+      ),
     );
     // return LoginScreen();
-    }
+  }
+
+  Future<Widget> getRoute() async {
+    String apiToken = await SecureStorage()
+        .readSecureData(KeyChainAccessConstants.apiToken) as String;
+    return (apiToken != '') ? CustomerDashboardScreen() : LoginScreen();
+  }
 
   void onButtonPressed() {
     print("Button Pressed");

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/networkHelper.dart';
+import 'package:flutter_application_3/models/genericModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_application_3/Helpers/helpers.dart';
 import 'package:flutter_application_3/Screens/BaseScaffold.dart';
@@ -61,14 +62,15 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
     try {
       // Example: Fetch data for a specific endpoint
       var endpoint = EndPointTypes.getComplaints;
-      var responseData = await NetworkHelper().getData(endpoint);
+      var responseData = await NetworkHelper().getData(endpoint: endpoint);
 
       // Process the responseData as needed
-       final list = (responseData['data'] as List);
-      var complaintModels =
-          list.map((data) => ComplaintJsonMappable.fromJson(data)).toList();
+      //  final list = (responseData['data'] as List);
+      var complaintModels = GenericArrayModel<ComplaintJsonMappable>.fromListJson(responseData, (p0) => (p0 as List).map((data) => ComplaintJsonMappable.fromJson(data)).toList());
+          
+          // list.map((data) => ComplaintJsonMappable.fromJson(data)).toList();
       setState(() {
-        cellModels = complaintModels;
+        cellModels = complaintModels.data;
       });
 
       // Update the UI or perform other actions based on the response

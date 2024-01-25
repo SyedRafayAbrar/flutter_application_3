@@ -12,7 +12,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         title: "ForgotPassword",
         body: Column(
           children: [
-            const PrimaryTextField(labelTextValue: "Enter Email Address", hintTextValue: "Enter Email Address/UserName"),
+            PrimaryTextField(textEditingController: TextEditingController(),labelTextValue: "Enter Email Address", hintTextValue: "Enter Email Address/UserName"),
             const SizedBox(
               height: 20,
             ),

@@ -12,9 +12,9 @@ class SignUpScreen extends StatelessWidget {
         title: "Sign Up",
         body: Column(
           children: [
-            const PrimaryTextField(labelTextValue: "UserName", hintTextValue: "Enter UserName"),
-            const PrimaryTextField(labelTextValue: "Email", hintTextValue: "Enter Email Address"),
-            const PrimaryTextField(labelTextValue: "Password", hintTextValue: "Enter Password"),
+            PrimaryTextField(labelTextValue: "UserName", hintTextValue: "Enter UserName", textEditingController: TextEditingController()),
+            PrimaryTextField(labelTextValue: "Email", hintTextValue: "Enter Email Address", textEditingController: TextEditingController()),
+            PrimaryTextField(labelTextValue: "Password", hintTextValue: "Enter Password", textEditingController: TextEditingController()),
             const SizedBox(
               height: 20,
             ),

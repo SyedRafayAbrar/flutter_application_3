@@ -4,14 +4,17 @@ class PrimaryTextField extends StatelessWidget {
   final String labelTextValue;
   final String hintTextValue;
   final Key? key; // Key parameter should be of type Key
+  final TextEditingController textEditingController;
 
-  const PrimaryTextField({required this.labelTextValue, required this.hintTextValue, this.key}) : super(key: key);
+  PrimaryTextField({required this.labelTextValue, required this.hintTextValue,required this.textEditingController, this.key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: TextFormField(
+        controller: textEditingController,
         validator: (String? value) {
               return (value != null && value.contains('@')) ? 'Do not use the @ char.' : null;
             },
