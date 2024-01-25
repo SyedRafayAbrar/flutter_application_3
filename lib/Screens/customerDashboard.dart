@@ -1,21 +1,67 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/appTheme.dart';
-import 'package:flutter_application_3/Helpers/helpers.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
+import 'package:flutter_application_3/Helpers/networkHelper.dart';
+import 'package:flutter_application_3/Helpers/secure_storage.dart';
 import 'package:flutter_application_3/Screens/BaseScaffold.dart';
-import 'package:flutter_application_3/components/cellItems/homeCells.dart';
+import 'package:flutter_application_3/models/genericModel.dart';
+import 'package:flutter_application_3/models/user_model.dart';
 // import 'package:flutter_application_3/components/cellItems/h';
 
-class CustomerDashboardScreen extends StatelessWidget {
-  final List<DashboardInfoViewModel> dashboardInfoList = [
-    DashboardInfoViewModel(titleNameLabel: "Flat No:", valueLabel: "205"),
-    DashboardInfoViewModel(titleNameLabel: "Block No:", valueLabel: "1"),
-    DashboardInfoViewModel(
-        titleNameLabel: "Address:",
-        valueLabel: "Falaknaz presidency, Near malir cantt")
-  ];
+class CustomerDashboardScreen extends StatefulWidget {
+  @override
+  State<CustomerDashboardScreen> createState() =>
+      _CustomerDashboardScreenState();
+}
+
+class _CustomerDashboardScreenState extends State<CustomerDashboardScreen> {
+  List<DashboardInfoViewModel> dashboardInfoList = [];
+
+  UserModel? userInfo;
+
+  Future<void> getUser() async {
+    try {
+      // Example: Fetch data for a specific endpoint
+      var endpoint = EndPointTypes.getUser;
+      var responseData = await NetworkHelper().getData(endpoint: endpoint,body: {'user_id':3});
+
+      // Process the responseData as needed
+      //  final list = (responseData['data'] as List);
+      var userInfoModel = GenericModel<UserModel>.fromJson(
+          responseData, (p0) => UserModel.fromJson(p0));
+
+      // list.map((data) => ComplaintJsonMappable.fromJson(data)).toList();
+      setState(() {
+        if (userInfoModel.data != null) {
+          userInfo = userInfoModel.data;
+          dashboardInfoList = [
+            DashboardInfoViewModel(
+                titleNameLabel: "Flat No:",
+                valueLabel: userInfo?.appartmentInfo?.unitNo ?? ''),
+            DashboardInfoViewModel(
+                titleNameLabel: "Block No:",
+                valueLabel: userInfo?.appartmentInfo?.blockNo ?? ''),
+            DashboardInfoViewModel(
+                titleNameLabel: "Address:",
+                valueLabel: userInfo?.appartmentInfo?.remainingAddress ?? '')
+          ];
+        }
+      });
+
+      // Update the UI or perform other actions based on the response
+    } catch (e) {
+      // Handle errors
+      print('Error fetching data: $e');
+      // You may want to show an error message to the user or take other actions
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +111,7 @@ class CustomerDashboardScreen extends StatelessWidget {
                 ],
               ),
             ),
-             Container(
+            Container(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,9 +123,9 @@ class CustomerDashboardScreen extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  const Text(
-                    "Owner",
-                    style: TextStyle(
+                  Text(
+                    userInfo?.residenceStatus ?? '',
+                    style: const TextStyle(
                         color: Colors.blue,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
@@ -130,24 +176,23 @@ class DashboardListView extends StatelessWidget {
     return ListView.separated(
         padding: EdgeInsets.fromLTRB(10, 10, 10, 50),
         itemBuilder: (BuildContext context, int index) {
-          return  Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  models[index].titleNameLabel,
-                  style: dashboardTheme.textTheme.titleSmall,
-                ),
-                const SizedBox(
-                  width: 100,
-                ),
-                Expanded(
-
-                    child: Text(
-                  models[index].valueLabel,
-                  style: dashboardTheme.textTheme.displaySmall,
-                ))
-              ],
-            );
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                models[index].titleNameLabel,
+                style: dashboardTheme.textTheme.titleSmall,
+              ),
+              const SizedBox(
+                width: 100,
+              ),
+              Expanded(
+                  child: Text(
+                models[index].valueLabel,
+                style: dashboardTheme.textTheme.displaySmall,
+              ))
+            ],
+          );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
         itemCount: models.length);

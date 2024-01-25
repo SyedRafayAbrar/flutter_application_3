@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/appTheme.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
+import 'package:flutter_application_3/Helpers/networkHelper.dart';
 import 'package:flutter_application_3/Helpers/secure_storage.dart';
 import 'package:flutter_application_3/Screens/complaints.dart';
 import 'package:flutter_application_3/Screens/home.dart';
@@ -42,6 +43,8 @@ class _MainAppState extends State<MainApp> {
         switch (settings.name) {
           case 'home':
             return MaterialPageRoute(builder: (context) => HomeScreen());
+          case 'login':
+            return MaterialPageRoute(builder: (context) => LoginScreen());  
           case 'forgotPW':
             return MaterialPageRoute(
                 builder: (context) => ForgotPasswordScreen());

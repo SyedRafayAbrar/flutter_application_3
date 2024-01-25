@@ -1,5 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
+final secureStorateShared = SecureStorage();
 class SecureStorage {
   final FlutterSecureStorage storage = const FlutterSecureStorage();
 
@@ -8,7 +8,7 @@ class SecureStorage {
   }
 
   Future<dynamic> readSecureData(String key) async {
-    return await storage.read(key: key) ?? 'No data found!';
+    return await storage.read(key: key) ?? '';
     // print('Data read from secure storage: $value');
   }
 

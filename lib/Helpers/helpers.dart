@@ -3,6 +3,7 @@ import 'package:flutter_application_3/Helpers/global.dart';
 
 enum AppRoutes {
   home,
+  login,
   signUp,
   forgotPW,
   itemDetails,

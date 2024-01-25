@@ -29,4 +29,5 @@ class AppFontsConstants {
 
 class KeyChainAccessConstants {
   static const apiToken = 'TOKEN';
+  static const userId = 'USER_ID';
 }

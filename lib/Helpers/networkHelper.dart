@@ -25,7 +25,9 @@ enum RequestMethod { GET, POST, PATCH, DELETE, PUT }
 
 enum EndPointTypes { 
   login,
-  getComplaints 
+  getComplaints,
+  getUser,
+  logout, 
   }
 
 extension EndPointTypesExtension on EndPointTypes {
@@ -35,6 +37,10 @@ extension EndPointTypesExtension on EndPointTypes {
         return "/api/get_complaints";
       case EndPointTypes.login:
         return "/api/login";
+      case EndPointTypes.getUser:
+        return "/api/get_user_model";
+      case EndPointTypes.logout:
+        return "/api/logout";  
     }
   }
 
@@ -43,7 +49,7 @@ extension EndPointTypesExtension on EndPointTypes {
       case EndPointTypes.getComplaints:
         return RequestMethod
             .GET;
-      case EndPointTypes.login:
+      case EndPointTypes.login || EndPointTypes.logout || EndPointTypes.getUser:
         return RequestMethod
             .POST;
     }
@@ -51,7 +57,7 @@ extension EndPointTypesExtension on EndPointTypes {
 
   Future<Map<String, String>> get requestHeaders async {
     switch (this) {
-      case EndPointTypes.getComplaints:
+      case EndPointTypes.getComplaints || EndPointTypes.getUser:
         return {
           'Content-type': 'application/json',
           'Accept': 'application/json',
@@ -88,7 +94,7 @@ class NetworkHelper {
 
       switch (endpoint.method) {
         case RequestMethod.GET:
-          response = await http.get(url, headers: await endpoint.requestHeaders);
+          response = await http.get(url, headers: await endpoint.requestHeaders,);
           break;
         case RequestMethod.POST:
           response = await http.post(url,
