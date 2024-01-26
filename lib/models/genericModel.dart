@@ -10,8 +10,6 @@ class GenericModel<T> {
   });
 
   factory GenericModel.fromJson(Map<String, dynamic> json, T Function(dynamic) fromJsonT) {
-    final data = json['data'];
-    print('json data if null $data');
     return GenericModel(
       status: json['status'],
       data: json['data'] != null ? fromJsonT(json['data']) : null,

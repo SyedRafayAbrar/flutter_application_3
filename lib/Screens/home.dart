@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/helpers.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
-import 'package:flutter_application_3/Screens/BaseScaffold.dart';
-import 'package:flutter_application_3/components/cellItems/homeCells.dart';
+import 'package:flutter_application_3/Screens/base_scaffold.dart';
+import 'package:flutter_application_3/components/cellItems/home_cells.dart';
 // import 'package:flutter_application_3/components/cellItems/h';
 
 class HomeScreen extends StatelessWidget {

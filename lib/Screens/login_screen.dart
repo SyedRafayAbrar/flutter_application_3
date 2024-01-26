@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_3/Helpers/appTheme.dart';
+import 'package:flutter_application_3/Helpers/app_theme.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
 import 'package:flutter_application_3/Helpers/helpers.dart';
-import 'package:flutter_application_3/Helpers/networkHelper.dart';
+import 'package:flutter_application_3/Helpers/network_helper.dart';
 import 'package:flutter_application_3/Helpers/secure_storage.dart';
 import 'package:flutter_application_3/models/genericModel.dart';
 import 'package:flutter_application_3/models/loginModel.dart';
-import '/components/primaryButton.dart';
-import '/components/primaryTextField.dart';
-import 'package:flutter_application_3/Screens/BaseScaffold.dart';
+import '../components/primary_button.dart';
+import '../components/primary_text_field.dart';
+import 'package:flutter_application_3/Screens/base_scaffold.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -97,7 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
     logger.i('role received ${loginModelResponse.data?.userRole?.role.roleDisplayName ?? ''}');
     if (loginToken != null) {
       secureStorateShared.writeSecureData(KeyChainAccessConstants.apiToken, loginToken);
-      secureStorateShared.writeSecureData(KeyChainAccessConstants.apiToken, userId.toString());
+      secureStorateShared.writeSecureData(KeyChainAccessConstants.userId, userId.toString());
+      logger.i('Fetched UserId -> ${userId.toString()}');
       NavigationService.navigateTo(
         AppRoutes.customerDashboard, NavigationType.presentRoot,
         arguments: {'data': 'Hello'});

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_3/Helpers/appTheme.dart';
+import 'package:flutter_application_3/Helpers/app_theme.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
-import 'package:flutter_application_3/Helpers/networkHelper.dart';
+import 'package:flutter_application_3/Helpers/network_helper.dart';
 import 'package:flutter_application_3/Helpers/secure_storage.dart';
 import 'package:flutter_application_3/Screens/complaints.dart';
 import 'package:flutter_application_3/Screens/home.dart';
-import 'package:flutter_application_3/Screens/signUp.dart';
-import 'package:flutter_application_3/Screens/itemDetail.dart';
-import 'package:flutter_application_3/Screens/customerDashboard.dart';
-import '/Screens/loginScreen.dart';
-import '/Screens/forgotPassword.dart';
+import 'package:flutter_application_3/Screens/sign_up.dart';
+import 'package:flutter_application_3/Screens/item_detail.dart';
+import 'package:flutter_application_3/Screens/customer_dashboard.dart';
+import 'login_screen.dart';
+import 'forgot_password.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '/Helpers/helpers.dart';
 

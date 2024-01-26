@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_3/Helpers/networkHelper.dart';
+import 'package:flutter_application_3/Helpers/network_helper.dart';
+import 'package:flutter_application_3/Helpers/request_handler.dart';
 import 'package:flutter_application_3/models/genericModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_application_3/Helpers/helpers.dart';
-import 'package:flutter_application_3/Screens/BaseScaffold.dart';
-import 'package:flutter_application_3/components/cellItems/complaintsCell.dart';
+import 'package:flutter_application_3/Screens/base_scaffold.dart';
+import 'package:flutter_application_3/components/cellItems/complaints_cell.dart';
 import 'package:flutter_application_3/models/complaintModel.dart';
 // import 'package:flutter_application_3/components/cellItems/h';
 
@@ -19,66 +20,25 @@ class ComplaintsScreen extends StatefulWidget {
 class _ComplaintsScreenState extends State<ComplaintsScreen> {
   List<ComplaintJsonMappable> cellModels = [];
 
-  // _getComplaints() {
-    // final response = await rootBundle.loadString('assets/complaints.json');
-    // final decoded = jsonDecode(response);
-    // final list = (decoded['data'] as List);
-    // var complaintModels = list.map((data) => ComplaintJsonMappable.fromJson(data)).toList();
-    // Map<String, String> requestHeaders = {
-    //   'Content-type': 'application/json',
-    //   'Accept': 'application/json',
-    //   'Authorization': 'token 3cf2a2f3c0bbef0b8e3bc18262c30598eb89a1be'
-    // };
-
-    // var url = Uri.http('127.0.0.1:8000', '/api/get_complaints');
-    // var response = await http.get(url, headers: requestHeaders);
-    // if (response.statusCode == 200) {
-    //   final decoded = jsonDecode(response.body);
-    //   final list = (decoded['data'] as List);
-    //   var complaintModels =
-    //       list.map((data) => ComplaintJsonMappable.fromJson(data)).toList();
-    //   setState(() {
-    //     cellModels = complaintModels;
-    //   });
-    // }
-
-  //   return FutureBuilder(
-  //       future: NetworkHelper().getData(EndPointTypes.getComplaints),
-  //       builder: (context, snapshot) {
-  //         if (snapshot.hasData) {
-  //           final list = (snapshot.data['data'] as List);
-  //           var complaintModels = list
-  //               .map((data) => ComplaintJsonMappable.fromJson(data))
-  //               .toList();
-  //           setState(() {
-  //             cellModels = complaintModels;
-  //           });
-  //         }
-  //         return CircularProgressIndicator();
-  //       });
-  // }
-
   Future<void> _getComplaints() async {
-    try {
-      // Example: Fetch data for a specific endpoint
-      var endpoint = EndPointTypes.getComplaints;
-      var responseData = await NetworkHelper().getData(endpoint: endpoint);
+        try {
+      var apiHandler = RequestHandler();
+      var complaintModels = await apiHandler.getComplaints();
 
-      // Process the responseData as needed
-      //  final list = (responseData['data'] as List);
-      var complaintModels = GenericArrayModel<ComplaintJsonMappable>.fromListJson(responseData, (p0) => (p0 as List).map((data) => ComplaintJsonMappable.fromJson(data)).toList());
-          
-          // list.map((data) => ComplaintJsonMappable.fromJson(data)).toList();
-      setState(() {
-        cellModels = complaintModels.data;
-      });
-
-      // Update the UI or perform other actions based on the response
+      if (complaintModels != null) {
+        setState(() {
+          cellModels = complaintModels.data;
+        });
+      } else {
+        // Handle null response
+        // You might want to show an error message to the user
+      }
     } catch (e) {
       // Handle errors
-      print('Error fetching data: $e');
-      // You may want to show an error message to the user or take other actions
+      print('Error: $e');
+      // Show an alert or handle the error in a way suitable for your app
     }
+
   }
 
   @override

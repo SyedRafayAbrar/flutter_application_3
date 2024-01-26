@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
-import 'package:flutter_application_3/Helpers/networkHelper.dart';
+import 'package:flutter_application_3/Helpers/network_helper.dart';
 import 'package:flutter_application_3/Helpers/secure_storage.dart';
-import 'package:flutter_application_3/components/cellItems/menuCells.dart';
+import 'package:flutter_application_3/components/cellItems/menu_cells.dart';
 import 'package:flutter_application_3/Helpers/helpers.dart';
 import 'package:flutter_application_3/models/genericModel.dart';
 import 'package:flutter_application_3/models/loginModel.dart';

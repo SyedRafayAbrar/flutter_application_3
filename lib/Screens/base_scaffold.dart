@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/global.dart';
 import 'package:flutter_application_3/Helpers/helpers.dart';
-import 'package:flutter_application_3/Screens/SideMenu.dart';
+import 'package:flutter_application_3/Screens/side_menu.dart';
 
 class BaseScaffold extends StatelessWidget {
   final String title;

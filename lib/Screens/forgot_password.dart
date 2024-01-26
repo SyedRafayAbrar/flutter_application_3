@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_3/Screens/BaseScaffold.dart';
-import 'package:flutter_application_3/components/primaryTextField.dart';
-import 'package:flutter_application_3/components/primaryButton.dart';
+import 'package:flutter_application_3/Screens/base_scaffold.dart';
+import 'package:flutter_application_3/components/primary_text_field.dart';
+import 'package:flutter_application_3/components/primary_button.dart';
 
 
 class ForgotPasswordScreen extends StatelessWidget {

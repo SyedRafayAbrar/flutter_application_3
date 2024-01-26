@@ -77,10 +77,10 @@ class NetworkHelper {
 
   NetworkHelper();
 
-  Future<dynamic> getData({required EndPointTypes endpoint, Object? body = Null}) async {
+  Future<dynamic> getData({required EndPointTypes endpoint, Object? body = Null, Map<String, dynamic>? queryParams}) async {
     try {
       http.Response response;
-      var url = Uri.http(baseUrlModel.baseUrl, endpoint.url);
+      var url = Uri.http(baseUrlModel.baseUrl, endpoint.url,queryParams);
       response = await http.get(url, headers: await endpoint.requestHeaders);
 
       // Log: Request URL

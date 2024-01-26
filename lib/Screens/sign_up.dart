@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/helpers.dart';
-import '/components/primaryButton.dart';
-import '/components/primaryTextField.dart';
-import 'package:flutter_application_3/Screens/BaseScaffold.dart';
+import '../components/primary_button.dart';
+import '../components/primary_text_field.dart';
+import 'package:flutter_application_3/Screens/base_scaffold.dart';
 
 class SignUpScreen extends StatelessWidget {
   @override

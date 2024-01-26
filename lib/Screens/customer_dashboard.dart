@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_3/Helpers/appTheme.dart';
+import 'package:flutter_application_3/Helpers/app_theme.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
-import 'package:flutter_application_3/Helpers/networkHelper.dart';
+import 'package:flutter_application_3/Helpers/network_helper.dart';
 import 'package:flutter_application_3/Helpers/secure_storage.dart';
-import 'package:flutter_application_3/Screens/BaseScaffold.dart';
+import 'package:flutter_application_3/Screens/base_scaffold.dart';
 import 'package:flutter_application_3/models/genericModel.dart';
 import 'package:flutter_application_3/models/user_model.dart';
 // import 'package:flutter_application_3/components/cellItems/h';
@@ -23,7 +23,9 @@ class _CustomerDashboardScreenState extends State<CustomerDashboardScreen> {
     try {
       // Example: Fetch data for a specific endpoint
       var endpoint = EndPointTypes.getUser;
-      var responseData = await NetworkHelper().getData(endpoint: endpoint,body: {'user_id':3});
+      final userId = await SecureStorage().readSecureData(KeyChainAccessConstants.userId) as String;
+      logger.i('User -> $userId');
+      var responseData = await NetworkHelper().getData(endpoint: endpoint,body: {'user_id':userId});
 
       // Process the responseData as needed
       //  final list = (responseData['data'] as List);
