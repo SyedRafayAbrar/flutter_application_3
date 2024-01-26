@@ -21,7 +21,7 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
   List<ComplaintJsonMappable> cellModels = [];
 
   Future<void> _getComplaints() async {
-        try {
+    try {
       var apiHandler = RequestHandler();
       var complaintModels = await apiHandler.getComplaints();
 
@@ -38,7 +38,6 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
       print('Error: $e');
       // Show an alert or handle the error in a way suitable for your app
     }
-
   }
 
   @override
@@ -46,13 +45,13 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
     // TODO: implement initState
     super.initState();
     _getComplaints();
-    
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: BaseScaffold(
+          rightWidgets: [IconButton(onPressed: () => (), icon: const Icon(Icons.add, color: Colors.black))],
       shouldShowMenu: true,
       title: "Complaints",
       body: Column(children: [

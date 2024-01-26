@@ -7,15 +7,21 @@ class BaseScaffold extends StatelessWidget {
   final String title;
   final Widget body;
   final bool shouldShowMenu;
+  List<Widget>? rightWidgets;
 
   BaseScaffold(
-      {required this.title, required this.body, this.shouldShowMenu = false});
+      {super.key,
+      required this.title,
+      required this.body,
+      this.shouldShowMenu = false,
+      this.rightWidgets});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: SideBar(),
       appBar: AppBar(
+          actions: rightWidgets,
           title: Text(title),
           leading: Column(
             children: [getBackWidget(), getMenuWidget(context)],
