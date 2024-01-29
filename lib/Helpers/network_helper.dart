@@ -23,13 +23,13 @@ extension BaseUrlTypeExtension on BaseUrlType {
 
 enum RequestMethod { GET, POST, PATCH, DELETE, PUT }
 
-enum EndPointTypes { 
+enum EndPointTypes {
   login,
   getComplaints,
   postComplaint,
   getUser,
-  logout, 
-  }
+  logout,
+}
 
 extension EndPointTypesExtension on EndPointTypes {
   String get url {
@@ -41,30 +41,34 @@ extension EndPointTypesExtension on EndPointTypes {
       case EndPointTypes.getUser:
         return "/api/get_user_model";
       case EndPointTypes.logout:
-        return "/api/logout";  
+        return "/api/logout";
       case EndPointTypes.postComplaint:
-        return "/api/add_complaints";  
+        return "/api/add_complaints";
     }
   }
 
   RequestMethod get method {
     switch (this) {
       case EndPointTypes.getComplaints:
-        return RequestMethod
-            .GET;
-      case EndPointTypes.login || EndPointTypes.logout || EndPointTypes.getUser || EndPointTypes.postComplaint:
-        return RequestMethod
-            .POST;
+        return RequestMethod.GET;
+      case EndPointTypes.login ||
+            EndPointTypes.logout ||
+            EndPointTypes.getUser ||
+            EndPointTypes.postComplaint:
+        return RequestMethod.POST;
     }
   }
 
   Future<Map<String, String>> get requestHeaders async {
     switch (this) {
-      case EndPointTypes.getComplaints || EndPointTypes.getUser || EndPointTypes.postComplaint:
+      case EndPointTypes.getComplaints ||
+            EndPointTypes.getUser ||
+            EndPointTypes.postComplaint:
         return {
           'Content-type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'token ${await SecureStorage().readSecureData(KeyChainAccessConstants.apiToken) as String}'
+          'Authorization':
+              'token ${await SecureStorage().readSecureData(KeyChainAccessConstants.apiToken) as String}'
         };
       default:
         return {
@@ -80,10 +84,13 @@ class NetworkHelper {
 
   NetworkHelper();
 
-  Future<dynamic> getData({required EndPointTypes endpoint, Object? body = Null, Map<String, dynamic>? queryParams}) async {
+  Future<dynamic> getData(
+      {required EndPointTypes endpoint,
+      Object? body = Null,
+      Map<String, dynamic>? queryParams}) async {
     try {
       http.Response response;
-      var url = Uri.http(baseUrlModel.baseUrl, endpoint.url,queryParams);
+      var url = Uri.http(baseUrlModel.baseUrl, endpoint.url, queryParams);
       response = await http.get(url, headers: await endpoint.requestHeaders);
 
       // Log: Request URL
@@ -97,40 +104,35 @@ class NetworkHelper {
 
       switch (endpoint.method) {
         case RequestMethod.GET:
-          response = await http.get(url, headers: await endpoint.requestHeaders,);
+          response = await http.get(
+            url,
+            headers: await endpoint.requestHeaders,
+          );
           break;
         case RequestMethod.POST:
           response = await http.post(url,
-              headers: await endpoint.requestHeaders,
-              body: jsonEncode(body));
+              headers: await endpoint.requestHeaders, body: jsonEncode(body));
           break;
         case RequestMethod.PATCH:
           response = await http.patch(url,
-              headers: await endpoint.requestHeaders,
-              body: jsonEncode(body));
+              headers: await endpoint.requestHeaders, body: jsonEncode(body));
           break;
         case RequestMethod.PUT:
           response = await http.put(url,
-              headers: await endpoint.requestHeaders,
-              body: jsonEncode(body));
+              headers: await endpoint.requestHeaders, body: jsonEncode(body));
           break;
         case RequestMethod.DELETE:
           response = await http.delete(url,
-              headers: await endpoint.requestHeaders,
-              body: jsonEncode(body));
+              headers: await endpoint.requestHeaders, body: jsonEncode(body));
           break;
         default:
-          response = await http.get(url, headers: await endpoint.requestHeaders);
+          response =
+              await http.get(url, headers: await endpoint.requestHeaders);
       }
-      if (response.statusCode == 200) {
-              logger.i('Response -> ${response.body}');
-        return jsonDecode(response.body);
-      } else {
-        // Handle errors here, you can throw an exception or return an error model
-        throw Exception(
-          
-            'Failed to load data. Status Code: ${response.statusCode}');
-      }
+      // if (response.statusCode == 200) {
+      logger.i('Response -> ${response.body}');
+      return jsonDecode(response.body);
+
     } catch (e) {
       // Handle other exceptions
       logger.e('Response -> ${e}');

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/app_theme.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
 import 'package:flutter_application_3/Helpers/network_helper.dart';
+import 'package:flutter_application_3/Helpers/request_handler.dart';
 import 'package:flutter_application_3/Helpers/secure_storage.dart';
 import 'package:flutter_application_3/Screens/base_scaffold.dart';
 import 'package:flutter_application_3/models/genericModel.dart';
@@ -21,38 +22,33 @@ class _CustomerDashboardScreenState extends State<CustomerDashboardScreen> {
 
   Future<void> getUser() async {
     try {
-      // Example: Fetch data for a specific endpoint
-      var endpoint = EndPointTypes.getUser;
-      final userId = await SecureStorage().readSecureData(KeyChainAccessConstants.userId) as String;
-      var responseData = await NetworkHelper().getData(endpoint: endpoint,body: {'user_id':userId});
-
-      // Process the responseData as needed
-      //  final list = (responseData['data'] as List);
-      var userInfoModel = GenericModel<UserModel>.fromJson(
-          responseData, (p0) => UserModel.fromJson(p0));
-
-      // list.map((data) => ComplaintJsonMappable.fromJson(data)).toList();
-      setState(() {
-        if (userInfoModel.data != null) {
-          userInfo = userInfoModel.data;
-          dashboardInfoList = [
-            DashboardInfoViewModel(
-                titleNameLabel: "Flat No:",
-                valueLabel: userInfo?.appartmentInfo?.unitNo ?? ''),
-            DashboardInfoViewModel(
-                titleNameLabel: "Block No:",
-                valueLabel: userInfo?.appartmentInfo?.blockNo ?? ''),
-            DashboardInfoViewModel(
-                titleNameLabel: "Address:",
-                valueLabel: userInfo?.appartmentInfo?.remainingAddress ?? '')
-          ];
-        }
-      });
+      var apiHandler = RequestHandler();
+      var userInfoModel = await apiHandler.getUser();
+      
+      if (userInfoModel != null) {
+        // list.map((data) => ComplaintJsonMappable.fromJson(data)).toList();
+        setState(() {
+          if (userInfoModel.data != null) {
+            userInfo = userInfoModel.data;
+            dashboardInfoList = [
+              DashboardInfoViewModel(
+                  titleNameLabel: "Flat No:",
+                  valueLabel: userInfo?.appartmentInfo?.unitNo ?? ''),
+              DashboardInfoViewModel(
+                  titleNameLabel: "Block No:",
+                  valueLabel: userInfo?.appartmentInfo?.blockNo ?? ''),
+              DashboardInfoViewModel(
+                  titleNameLabel: "Address:",
+                  valueLabel: userInfo?.appartmentInfo?.remainingAddress ?? '')
+            ];
+          }
+        });
+      }
 
       // Update the UI or perform other actions based on the response
     } catch (e) {
       // Handle errors
-      print('Error fetching data: $e');
+      return _showMyDialog(e.toString());
       // You may want to show an error message to the user or take other actions
     }
   }
@@ -63,6 +59,28 @@ class _CustomerDashboardScreenState extends State<CustomerDashboardScreen> {
     super.initState();
     getUser();
   }
+
+  Future<void> _showMyDialog(String alert) async {
+    final String message = alert;
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context, ) {
+      final String alertMessage = alert;
+      return AlertDialog.adaptive(
+        content: Text(alertMessage),
+        actions:  <Widget>[
+          TextButton(
+            child: const Text('Done'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
   @override
   Widget build(BuildContext context) {

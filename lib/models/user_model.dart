@@ -54,3 +54,22 @@ class AppartmentInfoMappable {
 
 }
 
+
+class UnAuthorizeError {
+
+  String detail;
+
+  UnAuthorizeError({
+    required this.detail,
+
+  });
+
+  factory UnAuthorizeError.fromJson(Map<String, dynamic> json) {
+    return UnAuthorizeError(
+      detail: json['detail'],
+    );
+  }
+
+
+}
+
