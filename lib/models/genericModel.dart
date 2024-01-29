@@ -16,6 +16,14 @@ class GenericModel<T> {
       error: json['error'],
     );
   }
+
+  factory GenericModel.fromEmptyJson(Map<String, dynamic> json, T Function(dynamic) fromJsonT) {
+    return GenericModel(
+      status: json['status'],
+      data: null,
+      error: json['error'],
+    );
+  }
 }
 
 class GenericArrayModel<T> {

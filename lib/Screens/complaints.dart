@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/network_helper.dart';
 import 'package:flutter_application_3/Helpers/request_handler.dart';
+import 'package:flutter_application_3/Screens/create_complaint.dart';
 import 'package:flutter_application_3/models/genericModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_application_3/Helpers/helpers.dart';
@@ -51,7 +52,17 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: BaseScaffold(
-          rightWidgets: [IconButton(onPressed: () => (), icon: const Icon(Icons.add, color: Colors.black))],
+      rightWidgets: [
+        IconButton(
+            onPressed: () => {
+                  showModalBottomSheet(
+                    context: context,
+                       builder: (BuildContext context) {
+                        return CreateComplaintScreen();
+                      })
+                },
+            icon: const Icon(Icons.add, color: Colors.black))
+      ],
       shouldShowMenu: true,
       title: "Complaints",
       body: Column(children: [

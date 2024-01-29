@@ -26,6 +26,7 @@ enum RequestMethod { GET, POST, PATCH, DELETE, PUT }
 enum EndPointTypes { 
   login,
   getComplaints,
+  postComplaint,
   getUser,
   logout, 
   }
@@ -41,6 +42,8 @@ extension EndPointTypesExtension on EndPointTypes {
         return "/api/get_user_model";
       case EndPointTypes.logout:
         return "/api/logout";  
+      case EndPointTypes.postComplaint:
+        return "/api/add_complaints";  
     }
   }
 
@@ -49,7 +52,7 @@ extension EndPointTypesExtension on EndPointTypes {
       case EndPointTypes.getComplaints:
         return RequestMethod
             .GET;
-      case EndPointTypes.login || EndPointTypes.logout || EndPointTypes.getUser:
+      case EndPointTypes.login || EndPointTypes.logout || EndPointTypes.getUser || EndPointTypes.postComplaint:
         return RequestMethod
             .POST;
     }
@@ -57,7 +60,7 @@ extension EndPointTypesExtension on EndPointTypes {
 
   Future<Map<String, String>> get requestHeaders async {
     switch (this) {
-      case EndPointTypes.getComplaints || EndPointTypes.getUser:
+      case EndPointTypes.getComplaints || EndPointTypes.getUser || EndPointTypes.postComplaint:
         return {
           'Content-type': 'application/json',
           'Accept': 'application/json',
@@ -120,14 +123,17 @@ class NetworkHelper {
           response = await http.get(url, headers: await endpoint.requestHeaders);
       }
       if (response.statusCode == 200) {
+              logger.i('Response -> ${response.body}');
         return jsonDecode(response.body);
       } else {
         // Handle errors here, you can throw an exception or return an error model
         throw Exception(
+          
             'Failed to load data. Status Code: ${response.statusCode}');
       }
     } catch (e) {
       // Handle other exceptions
+      logger.e('Response -> ${e}');
       throw Exception('Failed to load data. Error: $e');
     }
   }

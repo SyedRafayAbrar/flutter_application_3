@@ -24,7 +24,6 @@ class _CustomerDashboardScreenState extends State<CustomerDashboardScreen> {
       // Example: Fetch data for a specific endpoint
       var endpoint = EndPointTypes.getUser;
       final userId = await SecureStorage().readSecureData(KeyChainAccessConstants.userId) as String;
-      logger.i('User -> $userId');
       var responseData = await NetworkHelper().getData(endpoint: endpoint,body: {'user_id':userId});
 
       // Process the responseData as needed
