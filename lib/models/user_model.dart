@@ -1,11 +1,11 @@
+import 'dart:convert';
+
 class UserModel {
   int? id;
   String? userName;
   String? email;
   String? residenceStatus;
   AppartmentInfoMappable? appartmentInfo;
-  
-
 
   UserModel({
     required this.id,
@@ -13,7 +13,6 @@ class UserModel {
     required this.email,
     required this.residenceStatus,
     required this.appartmentInfo,
-
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -26,8 +25,20 @@ class UserModel {
     );
   }
 
-}
+  static Map<String, dynamic> toMap(UserModel model) => <String, dynamic>{
+        'id': model.id,
+        'user_name': model.userName,
+        'email': model.email,
+        'residence_status': model.residenceStatus,
+        'appartmentInfo': AppartmentInfoMappable.toMap(model.appartmentInfo!),
+      };
 
+  static String serialize(UserModel model) =>
+      json.encode(UserModel.toMap(model));
+
+  static UserModel deserialize(String json) =>
+      UserModel.fromJson(jsonDecode(json));
+}
 
 class AppartmentInfoMappable {
   int id;
@@ -51,17 +62,21 @@ class AppartmentInfoMappable {
     );
   }
 
-
+  static Map<String, dynamic> toMap(AppartmentInfoMappable model) =>
+      <String, dynamic>{
+        'id': model.id,
+        'unit_no': model.unitNo,
+        'block_no': model.blockNo,
+        'remaining_address': model.remainingAddress,
+      };
+      
 }
 
-
 class UnAuthorizeError {
-
   String detail;
 
   UnAuthorizeError({
     required this.detail,
-
   });
 
   factory UnAuthorizeError.fromJson(Map<String, dynamic> json) {
@@ -69,7 +84,4 @@ class UnAuthorizeError {
       detail: json['detail'],
     );
   }
-
-
 }
-

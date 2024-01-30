@@ -68,7 +68,7 @@ extension EndPointTypesExtension on EndPointTypes {
           'Content-type': 'application/json',
           'Accept': 'application/json',
           'Authorization':
-              'token ${await SecureStorage().readSecureData(KeyChainAccessConstants.apiToken) as String}'
+              'token ${await secureStorateShared.readSecureData(KeyChainAccessConstants.apiToken) as String}'
         };
       default:
         return {

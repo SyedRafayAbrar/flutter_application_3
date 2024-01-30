@@ -80,7 +80,7 @@ class _MainAppState extends State<MainApp> {
   }
 
   Future<Widget> getRoute() async {
-    String apiToken = await SecureStorage()
+    String apiToken = await secureStorateShared
         .readSecureData(KeyChainAccessConstants.apiToken) as String;
     return (apiToken != '') ? CustomerDashboardScreen() : LoginScreen();
   }

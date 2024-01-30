@@ -50,7 +50,7 @@ class RequestHandler {
   Future<GenericModel<UserModel>> getUser() async {
     
     var endpoint = EndPointTypes.getUser;
-    final userId = await SecureStorage()
+    final userId = await secureStorateShared
         .readSecureData(KeyChainAccessConstants.userId) as String;
     var responseData = await NetworkHelper()
         .getData(endpoint: endpoint, body: {'user_id': userId});

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/app_theme.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
@@ -25,8 +27,12 @@ class _CustomerDashboardScreenState extends State<CustomerDashboardScreen> {
       var apiHandler = RequestHandler();
       var userInfoModel = await apiHandler.getUser();
       
-      if (userInfoModel != null) {
+      if (userInfoModel.data != null) {
         // list.map((data) => ComplaintJsonMappable.fromJson(data)).toList();
+        var userData = userInfoModel.data!;
+        var serialized = UserModel.serialize(userData);
+        await secureStorateShared.writeSecureData(KeyChainAccessConstants.user_model,serialized);
+
         setState(() {
           if (userInfoModel.data != null) {
             userInfo = userInfoModel.data;
@@ -104,7 +110,7 @@ class _CustomerDashboardScreenState extends State<CustomerDashboardScreen> {
             Container(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
               child: Text(
-                "Saleem",
+                userInfo?.userName ?? '',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
