@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter_application_3/Helpers/constants.dart';
 import 'package:flutter_application_3/Helpers/secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+ import 'dart:developer' as dev;
 
 var logger = Logger(
   printer: PrettyPrinter(),
@@ -102,6 +104,9 @@ class NetworkHelper {
       // Log: Request Headers
       logger.i('Request Headers: ${endpoint.requestHeaders}');
 
+      // Log: Request Body
+      logger.i('Request BOdy: $body');
+
       switch (endpoint.method) {
         case RequestMethod.GET:
           response = await http.get(
@@ -130,7 +135,9 @@ class NetworkHelper {
               await http.get(url, headers: await endpoint.requestHeaders);
       }
       // if (response.statusCode == 200) {
-      logger.i('Response -> ${response.body}');
+        // log('');
+      // log('Response -> ${response.body}');
+      dev.log('Response -> ${response.body}');
       return jsonDecode(response.body);
 
     } catch (e) {

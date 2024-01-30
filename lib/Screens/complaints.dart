@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/network_helper.dart';
 import 'package:flutter_application_3/Helpers/request_handler.dart';
+import 'package:flutter_application_3/Helpers/stateHandlers.dart';
 import 'package:flutter_application_3/Screens/create_complaint.dart';
 import 'package:flutter_application_3/models/genericModel.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_application_3/Helpers/helpers.dart';
 import 'package:flutter_application_3/Screens/base_scaffold.dart';
@@ -30,6 +32,7 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
         setState(() {
           cellModels = complaintModels.data;
         });
+        
       } else {
         // Handle null response
         // You might want to show an error message to the user
@@ -67,20 +70,19 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
       title: "Complaints",
       body: Column(children: [
         Expanded(
-            child: ComplaintsListView(
-          cellModels: cellModels,
-        ))
+            child: ComplaintsListView())
       ]),
     ));
   }
 }
 
-class ComplaintsListView extends StatelessWidget {
-  List<ComplaintJsonMappable> cellModels = [];
-  ComplaintsListView({required this.cellModels});
-
+class ComplaintsListView extends ConsumerWidget {
+  ComplaintsListView(){
+    logger.i('ComplaintsListView initializes');
+  }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var complaints = ref.watch(complaintsProvider);
     return ListView.separated(
         padding: EdgeInsets.fromLTRB(10, 10, 10, 50),
         itemBuilder: (BuildContext context, int index) {
@@ -91,11 +93,11 @@ class ComplaintsListView extends StatelessWidget {
                   arguments: {'data': 'Hello'})
             },
             child: ComplaintCell(
-              model: cellModels[index],
+              model: complaints?[index],
             ),
           );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
-        itemCount: cellModels.length);
+        itemCount: complaints?.length ?? 0);
   }
 }

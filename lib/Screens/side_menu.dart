@@ -11,7 +11,7 @@ class SideBar extends StatelessWidget {
   SideBar({super.key});
   final menus = [
     MenuCellModel(menuTitle: "Home", menuIcon: Icon(Icons.home)),
-    MenuCellModel(menuTitle: "Bookmarks", menuIcon: Icon(Icons.bookmark)),
+    MenuCellModel(menuTitle: "Notifications", menuIcon: Icon(Icons.notifications)),
     MenuCellModel(
       menuTitle: "Complaints",
       menuIcon: Icon(Icons.note),
