@@ -9,6 +9,9 @@ enum AppRoutes {
   itemDetails,
   customerDashboard,
   complaint,
+  InvitationScreen,
+  selectResidentialScreen,
+  appartmentInfoScreen,
 }
 
 enum NavigationType {

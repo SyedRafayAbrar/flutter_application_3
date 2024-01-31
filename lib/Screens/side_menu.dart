@@ -71,7 +71,7 @@ class SideBar extends StatelessWidget {
 
   Future<void> logoutAction() async {
     final responseData = await NetworkHelper()
-        .getData(endpoint: EndPointTypes.logout, body: {"user_id": 3});
+        .getData(endpoint: EndPointTypes.logout, body: {"user_id": await secureStorateShared.readSecureData(KeyChainAccessConstants.userId) as String});
     var logOutModelResponse = GenericModel<LoginModel>.fromJson(
         responseData, (p0) => LoginModel.fromJson(p0));
     if (logOutModelResponse.status == 200) {

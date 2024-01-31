@@ -71,3 +71,30 @@ class RoleJsonMappable {
 
 
 }
+
+
+class SignUpModel {
+  int? id;
+  String? userName;
+  String? email;
+  String? token;
+  
+
+  SignUpModel({
+    required this.id,
+    required this.userName,
+    required this.email,
+    required this.token,
+
+  });
+
+  factory SignUpModel.fromJson(Map<String, dynamic> json) {
+    return SignUpModel(
+      id: json['id'],
+      userName: json['user_name'],
+      email: json['email'],
+      token: json['token'],
+    );
+  }
+
+}
