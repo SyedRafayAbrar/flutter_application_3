@@ -54,7 +54,7 @@ class _InvitationScreenState extends State<InvitationScreen> {
     final response =
         await AuthRequestHandler().postInvitation(inviteCodeController.text);
     if (response?.status == 200) {
-      NavigationService.navigateTo(AppRoutes.appartmentInfoScreen, NavigationType.push,
+      NavigationService.navigateTo(AppRoutes.myAppartments, NavigationType.push,
           arguments: {'data': 'Hello'});
     }
   }

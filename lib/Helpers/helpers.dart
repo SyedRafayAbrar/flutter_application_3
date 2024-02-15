@@ -12,6 +12,7 @@ enum AppRoutes {
   InvitationScreen,
   selectResidentialScreen,
   appartmentInfoScreen,
+  myAppartments,
 }
 
 enum NavigationType {

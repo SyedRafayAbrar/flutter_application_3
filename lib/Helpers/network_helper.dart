@@ -35,6 +35,7 @@ enum EndPointTypes {
   checkInvitation,
   assignResidentialStatus,
   addAppartment,
+  getMyAppartments,
 }
 
 extension EndPointTypesExtension on EndPointTypes {
@@ -58,12 +59,14 @@ extension EndPointTypesExtension on EndPointTypes {
         return "/api/assign_user_admin";
       case EndPointTypes.addAppartment:
         return "/api/add_appartment";
+      case EndPointTypes.getMyAppartments:
+        return "/api/get_my_tenants";
     }
   }
 
   RequestMethod get method {
     switch (this) {
-      case EndPointTypes.getComplaints:
+      case EndPointTypes.getComplaints || EndPointTypes.getMyAppartments:
         return RequestMethod.GET;
       case EndPointTypes.login ||
             EndPointTypes.logout ||
@@ -80,7 +83,10 @@ extension EndPointTypesExtension on EndPointTypes {
       case EndPointTypes.getComplaints ||
             EndPointTypes.getUser ||
             EndPointTypes.postComplaint ||
-            EndPointTypes.assignResidentialStatus || EndPointTypes.assignResidentialStatus || EndPointTypes.addAppartment:
+            EndPointTypes.assignResidentialStatus || 
+            EndPointTypes.assignResidentialStatus || 
+            EndPointTypes.addAppartment || 
+            EndPointTypes.getMyAppartments:
         return {
           'Content-type': 'application/json',
           'Accept': 'application/json',

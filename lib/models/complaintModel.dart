@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 class ComplaintJsonMappable {
   int id;

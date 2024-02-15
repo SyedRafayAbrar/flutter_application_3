@@ -5,6 +5,7 @@ import 'package:flutter_application_3/Helpers/network_helper.dart';
 import 'package:flutter_application_3/Helpers/secure_storage.dart';
 import 'package:flutter_application_3/Screens/complaints.dart';
 import 'package:flutter_application_3/Screens/home.dart';
+import 'package:flutter_application_3/Screens/my_appartments.dart';
 import 'package:flutter_application_3/Screens/signUpScreens/appartment_info_screen.dart';
 import 'package:flutter_application_3/Screens/signUpScreens/invitation_screen.dart';
 import 'package:flutter_application_3/Screens/signUpScreens/select_residential_Status.dart';
@@ -65,7 +66,9 @@ class _MainAppState extends State<MainApp> {
           case 'selectResidentialScreen':
             return MaterialPageRoute(builder: (context) => SelectResidentialScreen());
           case 'appartmentInfoScreen':
-          return MaterialPageRoute(builder: (context) => AppartmentInfoScreen());
+            return MaterialPageRoute(builder: (context) => AppartmentInfoScreen());
+          case 'myAppartments':
+            return MaterialPageRoute(builder: (context) => MyAppartments());  
           default:
             return MaterialPageRoute(builder: (context) => LoginScreen());
         }

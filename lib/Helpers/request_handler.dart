@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
 import 'package:flutter_application_3/Helpers/network_helper.dart';
 import 'package:flutter_application_3/Helpers/secure_storage.dart';
+import 'package:flutter_application_3/models/appartment_model.dart';
 import 'package:flutter_application_3/models/complaintModel.dart';
 import 'package:flutter_application_3/models/genericModel.dart';
 import 'package:flutter_application_3/models/loginModel.dart';
@@ -70,5 +71,23 @@ try {
     }
   }
 
-  
+   Future<GenericArrayModel<AppartmentBaseModel>?> getAppartments() async {
+    try {
+      var endpoint = EndPointTypes.getMyAppartments;
+      var responseData = await NetworkHelper().getData(endpoint: endpoint);
+
+      return GenericArrayModel<AppartmentBaseModel>.fromListJson(
+        responseData,
+        (p0) => (p0 as List)
+            .map((data) => AppartmentBaseModel.fromJson(data))
+            .toList(),
+      );
+    } catch (e) {
+      // Handle errors
+      print('Error fetching data: $e');
+      // You may want to throw a custom exception or handle errors in a specific way
+      // For simplicity, let's return null in case of an error
+      return null;
+    }
+  }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/Helpers/app_theme.dart';
 import 'package:flutter_application_3/Helpers/constants.dart';
+import 'package:flutter_application_3/Helpers/helpers.dart';
 import 'package:flutter_application_3/Helpers/network_helper.dart';
 import 'package:flutter_application_3/Helpers/request_handler.dart';
 import 'package:flutter_application_3/Helpers/secure_storage.dart';
@@ -106,6 +107,13 @@ class _CustomerDashboardScreenState extends State<CustomerDashboardScreen> {
                       fit: BoxFit.fill,
                     ),
                   )),
+            ),
+            Container(
+              child: (userInfo?.residenceStatus ?? '') == 'owner' ? ElevatedButton(onPressed: ()=>{
+          //       NavigationService.navigateTo(AppRoutes.appartmentInfoScreen, NavigationType.push,
+          // arguments: {'data': 'Hello'});
+          NavigationService.navigateTo(AppRoutes.myAppartments, NavigationType.push, arguments: {'data': 'Hello'})
+              }, child: Text('My Appartments')) : null,
             ),
             Container(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
